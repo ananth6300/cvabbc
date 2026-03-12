@@ -1,0 +1,318 @@
+.owner-dashboard {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  color: #1f2937;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-btn {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.3s;
+}
+
+.tab-btn:hover {
+  color: #2563eb;
+}
+
+.tab-btn.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.dashboard-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.content-header h2 {
+  color: #1f2937;
+}
+
+.project-form-card {
+  margin-bottom: 2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.projects-list,
+.inquiries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.project-thumbnail {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.project-item-content {
+  flex: 1;
+}
+
+.project-item-content h3 {
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.project-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #f59e0b;
+  color: #0b1020;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-top: 1rem;
+}
+
+.inquiry-item {
+  padding: 1.5rem;
+}
+
+.inquiry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.inquiry-header h3 {
+  color: #1f2937;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.contacted {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge.in-progress {
+  background-color: #fde68a;
+  color: #78350f;
+}
+
+.status-badge.completed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.inquiry-details {
+  color: #6b7280;
+  line-height: 1.8;
+}
+
+.inquiry-details p {
+  margin-bottom: 0.5rem;
+}
+
+.inquiry-date {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #9ca3af;
+}
+
+.no-data {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .dashboard-tabs {
+    gap: 0.75rem;
+  }
+  
+  .tab-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+  
+  .dashboard-content {
+    padding: 1.5rem;
+  }
+  
+  .content-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-tabs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .dashboard-content {
+    padding: 1rem;
+  }
+  
+  .content-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .content-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-item {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .project-thumbnail {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .project-item-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .inquiry-item {
+    padding: 1rem;
+  }
+  
+  .inquiry-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .inquiry-header h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .dashboard-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .tab-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+  }
+  
+  .dashboard-content {
+    padding: 0.75rem;
+  }
+  
+  .project-item,
+  .inquiry-item {
+    padding: 0.75rem;
+  }
+  
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .status-badge {
+    font-size: 11px;
+    padding: 4px 12px;
+  }
+}
+
