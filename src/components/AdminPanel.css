@@ -126,7 +126,8 @@
 
 .form-group input,
 .form-group textarea,
-.form-group select {
+.form-group select,
+.file-input {
   padding: 0.8rem;
   border: 2px solid #e1e8ed;
   border-radius: 8px;
@@ -136,10 +137,18 @@
 
 .form-group input:focus,
 .form-group textarea:focus,
-.form-group select:focus {
+.form-group select:focus,
+.file-input:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group small {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: block;
 }
 
 .form-row {

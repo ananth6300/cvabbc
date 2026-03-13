@@ -1,38 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getProjects, addProject, deleteProject } from '../utils/projectStorage';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [passkey, setPasskey] = useState('');
   const [showProjectForm, setShowProjectForm] = useState(false);
-  const [projects, setProjects] = useState([
-    {
-      _id: '1',
-      title: 'Modern Family Home',
-      description: 'A beautiful modern family home with 4 bedrooms and 3 bathrooms',
-      location: 'Downtown District',
-      status: 'completed',
-      budget: '$250,000',
-      duration: '6 months'
-    },
-    {
-      _id: '2',
-      title: 'Commercial Office Complex',
-      description: 'State-of-the-art commercial office complex',
-      location: 'Business Park',
-      status: 'ongoing',
-      budget: '$1.2M',
-      duration: '12 months'
-    }
-  ]);
+  const [projects, setProjects] = useState([]);
   const [projectForm, setProjectForm] = useState({
     title: '',
     description: '',
     location: '',
     status: 'ongoing',
     budget: '',
-    duration: ''
+    duration: '',
+    images: []
   });
+
+  // Load projects from storage on component mount
+  useEffect(() => {
+    setProjects(getProjects());
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -46,10 +34,7 @@ const AdminPanel = () => {
 
   const handleProjectSubmit = (e) => {
     e.preventDefault();
-    const newProject = {
-      _id: Date.now().toString(),
-      ...projectForm
-    };
+    const newProject = addProject(projectForm);
     setProjects([...projects, newProject]);
     setProjectForm({
       title: '',
@@ -57,15 +42,28 @@ const AdminPanel = () => {
       location: '',
       status: 'ongoing',
       budget: '',
-      duration: ''
+      duration: '',
+      images: []
     });
     setShowProjectForm(false);
     alert('Project added successfully!');
   };
 
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    // For now, we'll use placeholder images, but you can extend this to handle real uploads
+    if (files.length > 0) {
+      setProjectForm({
+        ...projectForm,
+        images: ['https://images.unsplash.com/photo-1541888946425-d81bb19240e5?w=600&h=400&fit=crop']
+      });
+    }
+  };
+
   const handleDeleteProject = (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
-      setProjects(projects.filter(p => p._id !== id));
+      const updatedProjects = deleteProject(id);
+      setProjects(updatedProjects);
     }
   };
 
@@ -175,6 +173,17 @@ const AdminPanel = () => {
                       onChange={(e) => setProjectForm({...projectForm, duration: e.target.value})}
                       placeholder="6 months"
                     />
+                  </div>
+                  <div className="form-group">
+                    <label>Project Images</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="file-input"
+                    />
+                    <small>Upload project images (optional)</small>
                   </div>
                   <button type="submit" className="btn btn-primary">Add Project</button>
                 </form>

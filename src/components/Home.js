@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getProjectStats } from '../utils/projectStorage';
 import './Home.css';
 
 const Home = () => {
-  const [counts, setCounts] = useState({ total: 150, completed: 120, ongoing: 30 });
+  const [counts, setCounts] = useState({ total: 0, completed: 0, ongoing: 0 });
   const [loadingCounts, setLoadingCounts] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setCounts({ total: 150, completed: 120, ongoing: 30 });
+      const stats = getProjectStats();
+      setCounts(stats);
       setLoadingCounts(false);
     }, 1000);
   }, []);

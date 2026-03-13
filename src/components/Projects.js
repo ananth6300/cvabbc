@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getProjects } from '../utils/projectStorage';
 import './Projects.css';
 
 function Projects() {
@@ -6,52 +7,17 @@ function Projects() {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
 
-  // Sample data with proper image URLs
-  const sampleProjects = [
-    {
-      _id: '1',
-      title: 'Modern Family Home',
-      description: 'A beautiful modern family home with 4 bedrooms and 3 bathrooms featuring open-concept living, gourmet kitchen, and master suite with walk-in closet.',
-      location: 'Downtown District',
-      status: 'completed',
-      images: ['https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=400&fit=crop'],
-      createdAt: new Date('2024-01-10'),
-      budget: '$250,000',
-      duration: '6 months'
-    },
-    {
-      _id: '2',
-      title: 'Commercial Office Complex',
-      description: 'State-of-the-art commercial office complex with modern amenities, conference rooms, and sustainable design features.',
-      location: 'Business Park',
-      status: 'ongoing',
-      images: ['https://images.unsplash.com/photo-1497366214040-9b5f1e6b0983?w=600&h=400&fit=crop'],
-      createdAt: new Date('2024-01-05'),
-      budget: '$1.2M',
-      duration: '12 months'
-    },
-    {
-      _id: '3',
-      title: 'Luxury Villa Renovation',
-      description: 'Complete renovation of luxury villa including pool area, outdoor kitchen, and landscape design.',
-      location: 'Hillside Estates',
-      status: 'completed',
-      images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop'],
-      createdAt: new Date('2023-12-15'),
-      budget: '$450,000',
-      duration: '4 months'
-    }
-  ];
-
   useEffect(() => {
+    // Load projects from storage
     setTimeout(() => {
+      const allProjects = getProjects();
       const filteredProjects = filter === 'all'
-        ? sampleProjects
-        : sampleProjects.filter(p => p.status === filter);
+        ? allProjects
+        : allProjects.filter(p => p.status === filter);
       setProjects(filteredProjects);
       setLoading(false);
     }, 1000);
-  }, [filter, sampleProjects]);
+  }, [filter]);
 
   return (
     <div className="projects-page">
