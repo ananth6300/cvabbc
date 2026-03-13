@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Projects.css';
 
-const Projects = () => {
+const apiUrl = "http://localhost:5000";
+function Projects() {
   const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -31,8 +32,8 @@ const Projects = () => {
   useEffect(() => {
     // Simulate loading projects
     setTimeout(() => {
-      const filteredProjects = filter === 'all' 
-        ? sampleProjects 
+      const filteredProjects = filter === 'all'
+        ? sampleProjects
         : sampleProjects.filter(p => p.status === filter);
       setProjects(filteredProjects);
       setLoading(false);
@@ -43,21 +44,21 @@ const Projects = () => {
     <div className="projects-page">
       <div className="container section">
         <h1 className="section-title">Our Projects</h1>
-        
+
         <div className="filter-buttons">
-          <button 
+          <button
             className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
           >
             All Projects
           </button>
-          <button 
+          <button
             className={`filter-btn ${filter === 'ongoing' ? 'active' : ''}`}
             onClick={() => setFilter('ongoing')}
           >
             Ongoing Projects
           </button>
-          <button 
+          <button
             className={`filter-btn ${filter === 'completed' ? 'active' : ''}`}
             onClick={() => setFilter('completed')}
           >
@@ -77,11 +78,10 @@ const Projects = () => {
               <div key={project._id} className="project-card">
                 {project.images && project.images.length > 0 && (
                   <div className="project-image-container">
-                    <img 
-                      src={`${apiUrl('')}${project.images[0]}`} 
+                    <img
+                      src={`${apiUrl}/${project.images[0]}`}
                       alt={project.title}
-                      className="project-image"
-                    />
+                      className="project-image" />
                     <span className={`project-status ${project.status}`}>
                       {project.status}
                     </span>
@@ -106,7 +106,7 @@ const Projects = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Projects;
 
