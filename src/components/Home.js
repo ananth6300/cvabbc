@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
-  const [counts, setCounts] = useState({ total: 2, completed: 1, ongoing: 1 });
+  const [counts, setCounts] = useState({ total: 150, completed: 120, ongoing: 30 });
   const [loadingCounts, setLoadingCounts] = useState(true);
 
   useEffect(() => {
-    // Simulate loading counts
     setTimeout(() => {
-      setCounts({ total: 2, completed: 1, ongoing: 1 });
+      setCounts({ total: 150, completed: 120, ongoing: 30 });
       setLoadingCounts(false);
     }, 1000);
   }, []);
@@ -19,11 +18,27 @@ const Home = () => {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>BBC Construction — Building Your Dreams Into Reality</h1>
-            <p>Professional construction services with years of experience in residential and commercial projects</p>
-            <div className="hero-buttons">
-              <Link to="/projects" className="btn btn-primary">View Our Projects</Link>
-              <Link to="/inquiry" className="btn btn-secondary">Get Free Quote</Link>
+            <div className="hero-text">
+              <h1>BBC Construction — Building Dreams Since 1995</h1>
+              <p className="hero-subtitle">Award-winning construction company delivering excellence in residential, commercial, and industrial projects for over 25 years.</p>
+              <div className="hero-buttons">
+                <Link to="/projects" className="btn btn-primary">View Our Portfolio</Link>
+                <Link to="/inquiry" className="btn btn-secondary">Get Free Quote</Link>
+              </div>
+            </div>
+            <div className="hero-stats">
+              <div className="hero-stat">
+                <div className="hero-stat-number">25+</div>
+                <div className="hero-stat-label">Years Experience</div>
+              </div>
+              <div className="hero-stat">
+                <div className="hero-stat-number">150+</div>
+                <div className="hero-stat-label">Projects Completed</div>
+              </div>
+              <div className="hero-stat">
+                <div className="hero-stat-number">98%</div>
+                <div className="hero-stat-label">Client Satisfaction</div>
+              </div>
             </div>
           </div>
         </div>
@@ -33,17 +48,104 @@ const Home = () => {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-card">
+              <div className="stat-icon">🏗️</div>
               <div className="stat-number">{loadingCounts ? '—' : counts.total}</div>
               <div className="stat-label">Total Projects</div>
             </div>
             <div className="stat-card">
+              <div className="stat-icon">✅</div>
               <div className="stat-number completed">{loadingCounts ? '—' : counts.completed}</div>
               <div className="stat-label">Completed</div>
             </div>
             <div className="stat-card">
+              <div className="stat-icon">🔨</div>
               <div className="stat-number ongoing">{loadingCounts ? '—' : counts.ongoing}</div>
               <div className="stat-label">Ongoing</div>
             </div>
+            <div className="stat-card">
+              <div className="stat-icon">👥</div>
+              <div className="stat-number">50+</div>
+              <div className="stat-label">Team Members</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section services">
+        <div className="container">
+          <h2 className="section-title">Our Services</h2>
+          <p className="section-subtitle">Comprehensive construction solutions tailored to your needs</p>
+          <div className="services-grid">
+            <div className="service-card">
+              <div className="service-icon">🏠</div>
+              <h3>Residential Construction</h3>
+              <p>Custom homes, renovations, and residential developments with attention to detail and quality craftsmanship.</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🏢</div>
+              <h3>Commercial Projects</h3>
+              <p>Office buildings, retail spaces, and commercial developments designed for functionality and aesthetics.</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🏗️</div>
+              <h3>Industrial Construction</h3>
+              <p>Warehouses, factories, and industrial facilities built to meet your specific operational requirements.</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon">🔧</div>
+              <h3>Renovation & Remodeling</h3>
+              <p>Transform your existing space with our expert renovation and remodeling services.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section about">
+        <div className="container">
+          <div className="about-content">
+            <div className="about-text">
+              <h2>Why Choose BBC Construction?</h2>
+              <p>With over 25 years of excellence in the construction industry, BBC Construction has built a reputation for delivering exceptional quality, innovative solutions, and unmatched customer service.</p>
+              <div className="features-list">
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>Licensed & Insured</span>
+                </div>
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>25+ Years Experience</span>
+                </div>
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>On-Time Delivery</span>
+                </div>
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>Competitive Pricing</span>
+                </div>
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>Quality Materials</span>
+                </div>
+                <div className="feature">
+                  <span className="feature-icon">✓</span>
+                  <span>Expert Team</span>
+                </div>
+              </div>
+            </div>
+            <div className="about-image">
+              <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240e5?w=600&h=400&fit=crop" alt="Construction Team" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section cta">
+        <div className="container">
+          <div className="cta-content">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Get in touch with our team today for a free consultation and quote.</p>
+            <Link to="/inquiry" className="btn btn-primary btn-large">Get Your Free Quote</Link>
           </div>
         </div>
       </section>
