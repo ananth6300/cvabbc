@@ -74,9 +74,15 @@ const OwnerDashboard = () => {
       // Use sample data during build
       setProjects(sampleProjects);
       setInquiries(sampleInquiries);
-    } else {
-      fetchData();
+      return;
     }
+
+    const token = localStorage.getItem('ownerToken');
+    if (!token) {
+      navigate('/owner/login');
+      return;
+    }
+    fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -94,6 +100,7 @@ const OwnerDashboard = () => {
       setInquiries(sampleInquiries);
     }
   };
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [addingImagesFor, setAddingImagesFor] = useState(null);

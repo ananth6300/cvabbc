@@ -28,23 +28,8 @@ const InquiryForm = () => {
     setSubmitting(true);
     setMessage({ type: '', text: '' });
 
-    try {
-      if (isBuildTime) {
-        // Mock successful submission during build
-        setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          address: '',
-          projectType: 'residential',
-          budget: '',
-          description: ''
-        });
-        return;
-      }
-
-      const response = await axios.post(apiUrl('/api/inquiries'), formData);
+    if (isBuildTime) {
+      // Mock successful submission during build
       setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
       setFormData({
         name: '',
@@ -55,22 +40,24 @@ const InquiryForm = () => {
         budget: '',
         description: ''
       });
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(apiUrl('/api/inquiries'), formData);
+      setMessage({ type: 'success', text: 'Your inquiry has been submitted successfully! We will contact you soon.' });
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        projectType: 'residential',
+        budget: '',
+        description: ''
+      });
     } catch (error) {
-      if (!isBuildTime) {
-        setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to submit inquiry. Please try again.' });
-      } else {
-        // Mock successful submission during build
-        setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          address: '',
-          projectType: 'residential',
-          budget: '',
-          description: ''
-        });
-      }
+      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to submit inquiry. Please try again.' });
     } finally {
       setSubmitting(false);
     }

@@ -15,14 +15,15 @@ const OwnerLogin = () => {
     setError('');
     setLoading(true);
 
-    try {
-      if (isBuildTime) {
-        // Mock successful login during build
-        localStorage.setItem('ownerToken', 'mock-token-for-build');
-        navigate('/owner/dashboard');
-        return;
-      }
+    if (isBuildTime) {
+      // Mock successful login during build
+      localStorage.setItem('ownerToken', 'mock-token-for-build');
+      navigate('/owner/dashboard');
+      setLoading(false);
+      return;
+    }
 
+    try {
       const response = await axios.post(apiUrl('/api/auth/login'), {
         passkey
       });
@@ -33,13 +34,7 @@ const OwnerLogin = () => {
       // Redirect to dashboard
       navigate('/owner/dashboard');
     } catch (error) {
-      if (!isBuildTime) {
-        setError(error.response?.data?.message || 'Invalid passkey. Please try again.');
-      } else {
-        // Mock successful login during build
-        localStorage.setItem('ownerToken', 'mock-token-for-build');
-        navigate('/owner/dashboard');
-      }
+      setError(error.response?.data?.message || 'Invalid passkey. Please try again.');
     } finally {
       setLoading(false);
     }
