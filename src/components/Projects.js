@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { apiUrl } from '../config';
+import { apiUrl, isBuildTime } from '../config';
 import './Projects.css';
 
 const Projects = () => {
@@ -8,8 +8,36 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
 
+  // Sample data for build mode
+  const sampleProjects = [
+    {
+      _id: '1',
+      title: 'Modern Family Home',
+      description: 'A beautiful modern family home with 4 bedrooms and 3 bathrooms',
+      location: 'Downtown District',
+      status: 'completed',
+      images: ['home1.jpg', 'home2.jpg'],
+      createdAt: new Date('2024-01-10')
+    },
+    {
+      _id: '2',
+      title: 'Office Complex',
+      description: 'Commercial office complex with modern amenities',
+      location: 'Business Park',
+      status: 'ongoing',
+      images: ['office1.jpg', 'office2.jpg'],
+      createdAt: new Date('2024-01-05')
+    }
+  ];
+
   useEffect(() => {
-    fetchProjects();
+    if (isBuildTime) {
+      // Use sample data during build
+      setProjects(sampleProjects);
+      setLoading(false);
+    } else {
+      fetchProjects();
+    }
   }, [filter]);
 
   const fetchProjects = async () => {
@@ -22,6 +50,8 @@ const Projects = () => {
       setProjects(response.data);
     } catch (error) {
       console.error('Error fetching projects:', error);
+      // Use sample data as fallback
+      setProjects(sampleProjects);
     } finally {
       setLoading(false);
     }

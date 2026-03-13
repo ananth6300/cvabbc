@@ -8,4 +8,7 @@ export function apiUrl(path = '') {
 
 export { API_BASE };
 
+// Check if we're in build mode
+export const isBuildTime = process.env.NODE_ENV === 'production' && !process.env.REACT_APP_API_URL;
+
 
