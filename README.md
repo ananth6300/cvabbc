@@ -1,144 +1,82 @@
-# Construction Company Website
+# BBC Construction Website
 
-A full-stack MERN (MongoDB, Express, React, Node.js) application for a construction company to showcase projects and manage customer inquiries.
+A modern, responsive construction company website built with React.
 
 ## Features
 
-- **Public Pages:**
-  - Home page with company information
-  - Projects gallery (Completed & Ongoing projects)
-  - Customer inquiry form
-
-- **Owner Dashboard:**
-  - Secure login with passkey
-  - Add/manage projects with image uploads
-  - View and manage customer inquiries
+- 🏗️ Project showcase with filtering
+- 📱 Fully responsive design
+- 🎨 Modern UI with CSS animations
+- ⚡ Fast loading and optimized
+- 📝 Contact inquiry form
+- 🌐 Ready for deployment
 
 ## Tech Stack
 
-- **Frontend:** React, React Router, Axios
-- **Backend:** Node.js, Express
-- **Database:** MongoDB
-- **File Upload:** Multer
-- **Authentication:** JWT (JSON Web Tokens)
+- **React.js** - Frontend framework
+- **React Router** - Navigation
+- **CSS3** - Styling and animations
 
-## Setup Instructions
+## Live Demo
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn
+[Your Website Link] (deployed on Vercel)
 
-### Backend Setup
+## Installation
 
-1. Navigate to the backend directory:
-```bash
-cd backend
-```
-
+1. Clone the repository
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
+3. Start development server:
+   ```bash
+   npm start
+   ```
 
-3. Create a `.env` file in the backend directory:
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/construction_db
-JWT_SECRET=your_secret_key_change_this
-OWNER_PASSKEY=admin123
-UPLOAD_PATH=./uploads
-```
+## Deployment
 
-4. Start MongoDB (if running locally):
-```bash
-# On Windows (if MongoDB is installed as a service, it should start automatically)
-# Or use MongoDB Atlas connection string in .env
-```
+### Vercel
+1. Connect repository to Vercel
+2. Framework: Create React App
+3. Build Command: `npm run build`
+4. Output Directory: `build`
 
-5. Start the backend server:
-```bash
-npm run dev
-# or
-npm start
-```
-
-The backend will run on `http://localhost:5000`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-```bash
-cd frontend
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm start
-```
-
-The frontend will run on `http://localhost:3000`
-
-## Default Credentials
-
-- **Owner Passkey:** `admin123` (can be changed in backend `.env` file)
+### Netlify
+1. Connect repository to Netlify
+2. Build Command: `npm run build`
+3. Publish Directory: `build`
 
 ## Project Structure
 
 ```
-construction-website/
-├── backend/
-│   ├── models/          # MongoDB models
-│   ├── routes/          # API routes
-│   ├── middleware/      # Authentication middleware
-│   ├── uploads/         # Uploaded images (created automatically)
-│   ├── server.js        # Express server
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
+├── public/
+│   ├── index.html
+│   └── _redirects
+├── src/
+│   ├── components/
+│   │   ├── Home.js
+│   │   ├── Projects.js
+│   │   ├── InquiryForm.js
+│   │   └── Navbar.js
+│   ├── App.js
+│   ├── App.css
+│   └── index.js
+├── package.json
 └── README.md
 ```
 
-## API Endpoints
+## Available Scripts
 
-### Public Endpoints
-- `GET /api/projects` - Get all projects
-- `GET /api/projects?status=completed` - Get projects by status
-- `POST /api/inquiries` - Submit customer inquiry
+- `npm start` - Run development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
 
-### Owner Endpoints (Requires Authentication)
-- `POST /api/auth/login` - Owner login
-- `POST /api/projects` - Create project (with images)
-- `PUT /api/projects/:id` - Update project
-- `DELETE /api/projects/:id` - Delete project
-- `GET /api/inquiries` - Get all inquiries
-- `PUT /api/inquiries/:id` - Update inquiry status
+## Website Sections
 
-## Notes
+- **Home**: Hero section, company overview, project statistics
+- **Projects**: Portfolio with filtering by status
+- **Inquiry**: Contact form for project quotes
 
-- Images are stored in `backend/uploads/` directory
-- JWT tokens are stored in browser localStorage
-- Default passkey is `admin123` - change it in production!
-- Make sure MongoDB is running before starting the backend
+## License
 
-## Production Deployment
-
-Before deploying to production:
-1. Change the `OWNER_PASSKEY` in `.env`
-2. Change the `JWT_SECRET` to a strong random string
-3. Use MongoDB Atlas or a production MongoDB instance
-4. Update API URLs in frontend if needed
-5. Set up proper image storage (AWS S3, Cloudinary, etc.)
-6. Enable HTTPS
-7. Add environment variables for production
-
+MIT License - feel free to use this for your construction business!
