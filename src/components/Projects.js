@@ -30,15 +30,14 @@ function Projects() {
   ];
 
   useEffect(() => {
-    // Simulate loading projects
-    setTimeout(() => {
-      const filteredProjects = filter === 'all'
-        ? sampleProjects
-        : sampleProjects.filter(p => p.status === filter);
-      setProjects(filteredProjects);
-      setLoading(false);
-    }, 1000);
-  }, [filter]);
+  setTimeout(() => {
+    const filteredProjects = filter === 'all'
+      ? sampleProjects
+      : sampleProjects.filter(p => p.status === filter);
+    setProjects(filteredProjects);
+    setLoading(false);
+  }, 1000);
+}, [filter, sampleProjects]);
 
   return (
     <div className="projects-page">
