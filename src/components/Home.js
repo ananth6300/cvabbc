@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import { apiUrl, isBuildTime } from '../config';
 
 const Home = () => {
   const [counts, setCounts] = useState({ total: 2, completed: 1, ongoing: 1 });
   const [loadingCounts, setLoadingCounts] = useState(true);
 
   useEffect(() => {
-    if (isBuildTime) {
-      // Use sample data during build
+    // Simulate loading counts
+    setTimeout(() => {
       setCounts({ total: 2, completed: 1, ongoing: 1 });
       setLoadingCounts(false);
-    } else {
-      const fetchCounts = async () => {
-        try {
-          const res = await fetch(apiUrl('/api/projects/counts'));
-          const data = await res.json();
-          setCounts(data);
-        } catch (e) {
-          // Use sample data as fallback
-          setCounts({ total: 2, completed: 1, ongoing: 1 });
-        } finally {
-          setLoadingCounts(false);
-        }
-      };
-      fetchCounts();
-    }
+    }, 1000);
   }, []);
 
   return (

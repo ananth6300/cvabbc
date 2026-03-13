@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { apiUrl, isBuildTime } from '../config';
 import './InquiryForm.css';
 
 const InquiryForm = () => {
@@ -28,8 +26,8 @@ const InquiryForm = () => {
     setSubmitting(true);
     setMessage({ type: '', text: '' });
 
-    if (isBuildTime) {
-      // Mock successful submission during build
+    // Simulate form submission
+    setTimeout(() => {
       setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
       setFormData({
         name: '',
@@ -41,26 +39,7 @@ const InquiryForm = () => {
         description: ''
       });
       setSubmitting(false);
-      return;
-    }
-
-    try {
-      const response = await axios.post(apiUrl('/api/inquiries'), formData);
-      setMessage({ type: 'success', text: 'Your inquiry has been submitted successfully! We will contact you soon.' });
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-        projectType: 'residential',
-        budget: '',
-        description: ''
-      });
-    } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to submit inquiry. Please try again.' });
-    } finally {
-      setSubmitting(false);
-    }
+    }, 2000);
   };
 
   return (

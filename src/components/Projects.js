@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { apiUrl, isBuildTime } from '../config';
 import './Projects.css';
 
 const Projects = () => {
@@ -8,7 +6,7 @@ const Projects = () => {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
 
-  // Sample data for build mode
+  // Sample data
   const sampleProjects = [
     {
       _id: '1',
@@ -31,31 +29,15 @@ const Projects = () => {
   ];
 
   useEffect(() => {
-    if (isBuildTime) {
-      // Use sample data during build
-      setProjects(sampleProjects);
+    // Simulate loading projects
+    setTimeout(() => {
+      const filteredProjects = filter === 'all' 
+        ? sampleProjects 
+        : sampleProjects.filter(p => p.status === filter);
+      setProjects(filteredProjects);
       setLoading(false);
-    } else {
-      fetchProjects();
-    }
+    }, 1000);
   }, [filter]);
-
-  const fetchProjects = async () => {
-    try {
-      setLoading(true);
-      const url = filter === 'all' 
-        ? apiUrl('/api/projects')
-        : apiUrl(`/api/projects?status=${filter}`);
-      const response = await axios.get(url);
-      setProjects(response.data);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      // Use sample data as fallback
-      setProjects(sampleProjects);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="projects-page">
