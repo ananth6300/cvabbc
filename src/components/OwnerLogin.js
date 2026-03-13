@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { apiUrl } from '../config';
+import { apiUrl, isBuildTime } from '../config';
 import './OwnerLogin.css';
 
 const OwnerLogin = () => {
@@ -16,6 +16,13 @@ const OwnerLogin = () => {
     setLoading(true);
 
     try {
+      if (isBuildTime) {
+        // Mock successful login during build
+        localStorage.setItem('ownerToken', 'mock-token-for-build');
+        navigate('/owner/dashboard');
+        return;
+      }
+
       const response = await axios.post(apiUrl('/api/auth/login'), {
         passkey
       });
@@ -26,7 +33,13 @@ const OwnerLogin = () => {
       // Redirect to dashboard
       navigate('/owner/dashboard');
     } catch (error) {
-      setError(error.response?.data?.message || 'Invalid passkey. Please try again.');
+      if (!isBuildTime) {
+        setError(error.response?.data?.message || 'Invalid passkey. Please try again.');
+      } else {
+        // Mock successful login during build
+        localStorage.setItem('ownerToken', 'mock-token-for-build');
+        navigate('/owner/dashboard');
+      }
     } finally {
       setLoading(false);
     }

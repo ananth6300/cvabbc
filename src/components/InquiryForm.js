@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { apiUrl } from '../config';
+import { apiUrl, isBuildTime } from '../config';
 import './InquiryForm.css';
 
 const InquiryForm = () => {
@@ -29,11 +29,23 @@ const InquiryForm = () => {
     setMessage({ type: '', text: '' });
 
     try {
+      if (isBuildTime) {
+        // Mock successful submission during build
+        setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          address: '',
+          projectType: 'residential',
+          budget: '',
+          description: ''
+        });
+        return;
+      }
+
       const response = await axios.post(apiUrl('/api/inquiries'), formData);
-      setMessage({ 
-        type: 'success', 
-        text: 'Your inquiry has been submitted successfully! We will contact you soon.' 
-      });
+      setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
       setFormData({
         name: '',
         email: '',
@@ -44,10 +56,21 @@ const InquiryForm = () => {
         description: ''
       });
     } catch (error) {
-      setMessage({ 
-        type: 'error', 
-        text: error.response?.data?.message || 'Failed to submit inquiry. Please try again.' 
-      });
+      if (!isBuildTime) {
+        setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to submit inquiry. Please try again.' });
+      } else {
+        // Mock successful submission during build
+        setMessage({ type: 'success', text: 'Thank you for your inquiry! We will contact you soon.' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          address: '',
+          projectType: 'residential',
+          budget: '',
+          description: ''
+        });
+      }
     } finally {
       setSubmitting(false);
     }

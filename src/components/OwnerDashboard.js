@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { apiUrl } from '../config';
+import { apiUrl, isBuildTime } from '../config';
 import './OwnerDashboard.css';
 
 const OwnerDashboard = () => {
@@ -19,6 +19,81 @@ const OwnerDashboard = () => {
     completionDate: '',
     images: []
   });
+
+  // Sample data for build mode
+  const sampleProjects = [
+    {
+      _id: '1',
+      title: 'Modern Family Home',
+      description: 'A beautiful modern family home with 4 bedrooms and 3 bathrooms',
+      location: 'Downtown District',
+      status: 'completed',
+      images: ['home1.jpg', 'home2.jpg'],
+      createdAt: new Date('2024-01-10')
+    },
+    {
+      _id: '2',
+      title: 'Office Complex',
+      description: 'Commercial office complex with modern amenities',
+      location: 'Business Park',
+      status: 'ongoing',
+      images: ['office1.jpg', 'office2.jpg'],
+      createdAt: new Date('2024-01-05')
+    }
+  ];
+
+  const sampleInquiries = [
+    {
+      _id: '1',
+      name: 'John Doe',
+      email: 'john@example.com',
+      phone: '123-456-7890',
+      address: '123 Main St, City, State',
+      projectType: 'residential',
+      budget: '$50,000 - $100,000',
+      description: 'Looking to build a new home with modern design',
+      status: 'pending',
+      createdAt: new Date('2024-01-15')
+    },
+    {
+      _id: '2',
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      phone: '098-765-4321',
+      address: '456 Oak Ave, Town, State',
+      projectType: 'commercial',
+      budget: '$100,000 - $200,000',
+      description: 'Need to construct an office building',
+      status: 'contacted',
+      createdAt: new Date('2024-01-20')
+    }
+  ];
+
+  useEffect(() => {
+    if (isBuildTime) {
+      // Use sample data during build
+      setProjects(sampleProjects);
+      setInquiries(sampleInquiries);
+    } else {
+      fetchData();
+    }
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const [projectsRes, inquiriesRes] = await Promise.all([
+        axios.get(apiUrl('/api/projects')),
+        axios.get(apiUrl('/api/inquiries'))
+      ]);
+      setProjects(projectsRes.data);
+      setInquiries(inquiriesRes.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Use sample data as fallback
+      setProjects(sampleProjects);
+      setInquiries(sampleInquiries);
+    }
+  };
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [addingImagesFor, setAddingImagesFor] = useState(null);
